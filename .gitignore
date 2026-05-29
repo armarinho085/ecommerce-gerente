@@ -1,4 +1,8 @@
+# Ambiente e segredos
 .env
+*.key
+
+# Python
 __pycache__/
 *.py[cod]
 *.egg-info/
@@ -6,6 +10,21 @@ __pycache__/
 venv/
 dist/
 build/
+.pytest_cache/
+.mypy_cache/
+
+# Outputs dos agentes (resultados gerados, não commitar)
+output/
+resultados/
+relatorios/
+
+# Imagens processadas pelo editor (arquivos grandes)
+agentes/editor/imagens/
+agentes/editor/output/
+
+# Logs
 *.log
+
+# Sistema operacional
 .DS_Store
 Thumbs.db
