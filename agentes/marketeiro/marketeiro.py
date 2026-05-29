@@ -1,7 +1,7 @@
 from crewai import Agent
 from crewai import LLM
 
-llm = LLM(model="claude-sonnet-4-6", max_tokens=8096)
+llm = LLM(model="anthropic/claude-sonnet-4-6", max_tokens=8096)
 
 marketeiro = Agent(
     role="Especialista em Marketing e Promoções",
