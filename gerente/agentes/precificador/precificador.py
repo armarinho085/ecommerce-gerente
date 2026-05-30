@@ -1,14 +1,13 @@
-from crewai import Agent
-from crewai import LLM
+from crewai import Agent, LLM
+from .ferramentas import buscar_produtos
 
 llm = LLM(model="anthropic/claude-sonnet-4-6", max_tokens=8096)
 
-# Taxas padrão dos principais marketplaces (atualizar conforme necessário)
 TAXAS_MARKETPLACES = {
-    "mercado_livre": 0.14,   # 14%
-    "shopee": 0.20,          # 20%
-    "amazon": 0.15,          # 15%
-    "site_proprio": 0.03,    # 3% (gateway de pagamento)
+    "mercado_livre": 0.14,
+    "shopee": 0.20,
+    "amazon": 0.15,
+    "site_proprio": 0.03,
 }
 
 precificador = Agent(
@@ -24,5 +23,6 @@ precificador = Agent(
         "em todos os canais de venda."
     ),
     llm=llm,
+    tools=[buscar_produtos],
     verbose=True,
 )
