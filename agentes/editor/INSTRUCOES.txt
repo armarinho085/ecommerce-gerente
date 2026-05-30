@@ -1,0 +1,153 @@
+====================================================
+   EDITOR DE FOTOS - PASSO A PASSO
+====================================================
+
+VISAO GERAL
+------------
+Cada produto tem sua propria pasta dentro de inputs/.
+O editor tem dois programas:
+
+  melhorar.py  -> Transforma fotos amadoras em fotos profissionais
+  colorir.py   -> Gera variacoes de cor das fotos ja melhoradas
+
+Voce pode processar varios produtos de uma vez — basta ter
+as pastas organizadas antes de rodar os programas.
+
+
+====================================================
+PARTE 1 - MELHORAR A FOTO
+====================================================
+
+PASSO 1 - Crie a pasta do produto
+-----------------------------------
+  1. Abra a pasta:   editor > inputs
+  2. Crie uma nova pasta com o nome do produto
+     Exemplo: elastico-branco, alca-preta, fita-xadrez
+
+PASSO 2 - Tire e coloque a foto dentro da pasta
+-------------------------------------------------
+  1. Tire a foto do produto com o CELULAR ou CAMERA
+  2. Transfira a foto para o computador
+  3. Renomeie o arquivo para:   antes.jpg
+  4. Cole o arquivo dentro da pasta do produto
+
+  Exemplo de estrutura:
+    inputs/
+      elastico-branco/
+        antes.jpg
+      alca-preta/
+        antes.jpg
+
+  ATENCAO: cada pasta so pode ter UM arquivo "antes"
+
+  !! IMPORTANTE - TIPO DE FOTO ACEITO !!
+  ---------------------------------------
+  O sistema so funciona com fotos REAIS tiradas com celular
+  ou camera diretamente do produto fisico.
+
+  NAO funcionam:
+    x Imagens criadas ou editadas no Canva
+    x Imagens criadas no Photoshop, Illustrator ou similares
+    x Prints de tela ou capturas de outros sites
+    x Renders 3D ou imagens geradas por IA
+
+  Funcionam:
+    v Foto tirada com celular (JPG ou PNG)
+    v Foto tirada com camera fotografica
+    v Foto do produto em qualquer ambiente (mesa, chao, etc.)
+    v Foto com fundo qualquer — o sistema remove automaticamente
+
+  A foto pode ser amadora, com fundo bagunçado, iluminacao ruim
+  ou produto deitado. O editor cuida de tudo isso.
+
+PASSO 3 - Execute o programa
+------------------------------
+  1. Na pasta "editor", clique duas vezes em:   melhorar.py
+  2. O programa vai processar TODOS os produtos que tiverem
+     um arquivo "antes" na pasta
+  3. Aguarde cerca de 20 a 50 segundos por produto
+
+PASSO 4 - Resultado
+---------------------
+  Quando aparecer "CONCLUIDO!", as fotos melhoradas estarao em:
+    editor > output > [nome-do-produto] > antes-catalogo.png
+
+
+====================================================
+PARTE 2 - GERAR VARIACOES DE COR (opcional)
+====================================================
+
+PASSO 1 - Defina as cores de cada produto
+-------------------------------------------
+  1. Abra a pasta do produto dentro de inputs/
+  2. Crie um arquivo de texto chamado:   cores.txt
+  3. Digite os codigos de cor desejados, um por linha:
+
+     Exemplo:
+       #BD162C
+       #B09FCA
+       #2A3244
+
+  IMPORTANTE: coloque apenas as cores que voce precisa.
+  Cada cor gera um custo — nao adicione cores desnecessarias.
+
+  Onde encontrar codigos de cor:
+    -> Google: pesquise "color picker" e copie o codigo hex
+    -> O codigo sempre comeca com # seguido de 6 letras/numeros
+
+  Exemplo de estrutura completa:
+    inputs/
+      elastico-branco/
+        antes.jpg
+        cores.txt    <- cores so para este produto
+      alca-preta/
+        antes.jpg
+        cores.txt    <- cores so para este produto
+
+PASSO 2 - Execute o programa
+------------------------------
+  1. Na pasta "editor", clique duas vezes em:   colorir.py
+  2. O programa vai processar todos os produtos que tiverem
+     o cores.txt preenchido E a foto ja melhorada
+  3. Aguarde cerca de 20 segundos por cor
+
+PASSO 3 - Resultado
+---------------------
+  Quando aparecer "CONCLUIDO!", as fotos estarao em:
+    editor > output > [nome-do-produto]
+
+  Arquivos gerados:
+    antes-catalogo.png          -> foto original melhorada
+    antes-catalogo-BD162C.png   -> variacao de cor 1
+    antes-catalogo-B09FCA.png   -> variacao de cor 2
+
+
+====================================================
+DUVIDAS COMUNS
+====================================================
+
+  [?] O programa nao encontrou meu produto
+      -> Verifique se a foto dentro da pasta se chama "antes.jpg"
+
+  [?] O produto aparece como "sem cores.txt — ignorado"
+      -> Crie o arquivo cores.txt dentro da pasta do produto
+
+  [?] O produto aparece como "foto ainda nao melhorada"
+      -> Execute o melhorar.py antes de rodar o colorir.py
+
+  [?] O programa abriu e fechou rapidinho
+      -> Clique com o botao direito no arquivo .py
+         e escolha "Abrir com > Python"
+
+  [?] Quero gerar mais cores para um produto ja processado
+      -> Adicione as novas cores no cores.txt do produto
+         e rode o colorir.py novamente
+
+  [?] Apareceu erro "imagem nao e compativel com o modelo"
+      -> A foto foi criada em Canva, Photoshop ou outro editor
+         Tire uma foto real do produto com o celular e tente novamente
+
+  [?] Deu erro de internet ou API
+      -> Verifique a conexao com a internet e tente novamente
+
+====================================================

@@ -18,9 +18,13 @@ output/
 resultados/
 relatorios/
 
+# Node.js
+node_modules/
+
 # Imagens processadas pelo editor (arquivos grandes)
 agentes/editor/imagens/
 agentes/editor/output/
+agentes/editor/inputs/
 
 # Logs
 *.log

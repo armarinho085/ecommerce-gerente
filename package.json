@@ -1,0 +1,21 @@
+{
+  "name": "gerente",
+  "version": "1.0.0",
+  "description": "Sistema de agentes para e-commerce",
+  "scripts": {
+    "gerente": "tsx gerente.ts"
+  },
+  "dependencies": {
+    "@google/genai": "^2.6.0",
+    "dotenv": "^17.4.2",
+    "sharp": "^0.33.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
