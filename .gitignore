@@ -32,3 +32,5 @@ agentes/editor/inputs/
 # Sistema operacional
 .DS_Store
 Thumbs.db
+node_modules/
+.venv/
