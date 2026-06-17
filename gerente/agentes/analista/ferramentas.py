@@ -1,5 +1,19 @@
+import os
+from pathlib import Path
 import pandas as pd
 from crewai.tools import tool
+from dotenv import load_dotenv
+
+load_dotenv()
+
+MESES = {
+    "janeiro": 1, "fevereiro": 2, "março": 3, "marco": 3,
+    "abril": 4, "maio": 5, "junho": 6,
+    "julho": 7, "agosto": 8, "setembro": 9,
+    "outubro": 10, "novembro": 11, "dezembro": 12,
+}
+
+MESES_NOMES = {v: k for k, v in MESES.items() if k != "marco"}
 
 COLUNAS = {
     "pedido": "Nº Pedido",
@@ -311,3 +325,50 @@ def listar_pedidos_criticos(caminho_arquivo: str, limite: int = 20) -> str:
         resultado.append(_linha_pedido(row))
 
     return "\n".join(resultado)
+
+
+@tool("Buscar relatorio mensal")
+def buscar_relatorio(mes: str, ano: str = "") -> str:
+    """
+    Localiza o arquivo XLS do relatório de vendas pelo nome do mês e ano.
+    Retorna o caminho completo do arquivo pronto para usar com analisar_relatorio.
+
+    Parâmetros:
+    - mes: nome do mês em português (ex: "maio", "janeiro", "dezembro")
+    - ano: ano com 4 dígitos (ex: "2026"). Se vazio, usa o ano mais recente disponível.
+    """
+    base = os.getenv("DADOS_MENSAIS_PATH", "")
+    if not base:
+        return "Erro: DADOS_MENSAIS_PATH não configurado no .env"
+
+    base_path = Path(base)
+    if not base_path.exists():
+        return f"Erro: pasta não encontrada: {base_path}"
+
+    mes_norm = mes.lower().strip()
+    num_mes = MESES.get(mes_norm)
+    if not num_mes:
+        disponiveis = ", ".join(MESES.keys())
+        return f"Mês '{mes}' não reconhecido. Use: {disponiveis}"
+
+    # Determina anos disponíveis
+    anos_disponiveis = sorted([p.name for p in base_path.iterdir() if p.is_dir()], reverse=True)
+    if not anos_disponiveis:
+        return f"Nenhum ano encontrado em: {base_path}"
+
+    ano_busca = ano.strip() if ano.strip() else anos_disponiveis[0]
+    pasta_ano = base_path / ano_busca
+    if not pasta_ano.exists():
+        return f"Ano {ano_busca} não encontrado. Anos disponíveis: {', '.join(anos_disponiveis)}"
+
+    # Procura arquivo pelo padrão nome-mes-ano.xls
+    nome_mes = MESES_NOMES.get(num_mes, mes_norm)
+    candidatos = list(pasta_ano.glob(f"{nome_mes}-{ano_busca}.*"))
+    if not candidatos:
+        arquivos = [f.name for f in pasta_ano.iterdir() if f.is_file()]
+        return (
+            f"Arquivo de {mes} de {ano_busca} não encontrado em {pasta_ano}.\n"
+            f"Arquivos disponíveis: {', '.join(arquivos) if arquivos else 'nenhum'}"
+        )
+
+    return str(candidatos[0])

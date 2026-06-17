@@ -1,6 +1,6 @@
 from crewai import Agent
 from crewai import LLM
-from agentes.analista.ferramentas import analisar_relatorio, listar_pedidos_criticos
+from agentes.analista.ferramentas import analisar_relatorio, listar_pedidos_criticos, buscar_relatorio
 
 llm = LLM(model="anthropic/claude-sonnet-4-6", max_tokens=8096)
 
@@ -19,7 +19,7 @@ analista = Agent(
         "o liquido reportado pela plataforma e o calculado, identifica pedidos com margem "
         "negativa ou muito baixa e aponta oportunidades de melhoria de margem."
     ),
-    tools=[analisar_relatorio, listar_pedidos_criticos],
+    tools=[buscar_relatorio, analisar_relatorio, listar_pedidos_criticos],
     llm=llm,
     verbose=False,
 )
