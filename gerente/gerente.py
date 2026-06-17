@@ -25,5 +25,5 @@ gerente = Agent(
     ),
     llm=llm,
     allow_delegation=True,
-    verbose=True,
+    verbose=False,
 )

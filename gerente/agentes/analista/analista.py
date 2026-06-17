@@ -21,5 +21,5 @@ analista = Agent(
     ),
     tools=[analisar_relatorio, listar_pedidos_criticos],
     llm=llm,
-    verbose=True,
+    verbose=False,
 )
