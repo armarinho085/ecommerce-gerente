@@ -1,7 +1,9 @@
 import { run as editor } from './agentes/editor/editor';
+import { run as precificador } from './agentes/precificador/precificador';
 
 const AGENTES: Record<string, (args: string[]) => Promise<void>> = {
   editor,
+  precificador,
 };
 
 async function main() {
@@ -12,7 +14,8 @@ async function main() {
     console.log('║         GERENTE E-COMMERCE       ║');
     console.log('╚══════════════════════════════════╝');
     console.log('\nAgentes disponíveis:');
-    console.log('  editor   → edição e geração de fotos de produto');
+    console.log('  editor       → edição e geração de fotos de produto');
+  console.log('  precificador → análise financeira e precificação por marketplace');
     console.log('\nUso:');
     console.log('  npx tsx gerente.ts <agente> <skill> [args...]');
     console.log('\nExemplos:');

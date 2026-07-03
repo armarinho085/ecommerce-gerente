@@ -6,8 +6,10 @@
     "gerente": "tsx gerente.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0",
     "@google/genai": "^2.6.0",
     "dotenv": "^17.4.2",
+    "playwright": "^1.61.1",
     "sharp": "^0.33.2"
   },
   "devDependencies": {
