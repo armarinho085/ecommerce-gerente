@@ -6,8 +6,10 @@ import { GeminiService } from '../src/GeminiService';
 const OUTPUT_SIZE = 2048;
 
 export async function run(args: string[]) {
-  const [inputPath, hexColor] = args;
-  if (!inputPath || !hexColor) throw new Error('Uso: editor change-color <imagem> <#hexcolor>');
+  const [inputPath, hexColor, colorName] = args;
+  if (!inputPath || !hexColor || !colorName) {
+    throw new Error('Uso: editor change-color <imagem> <#hexcolor> <nome-da-cor>\nExemplo: editor change-color inputs/elastico/antes-catalogo.png #BD162C vermelho-escuro');
+  }
   if (!/^#[0-9A-Fa-f]{6}$/.test(hexColor)) throw new Error(`Cor inválida: "${hexColor}". Use formato hex, ex: #BD162C`);
 
   const gemini = new GeminiService();
@@ -21,11 +23,14 @@ export async function run(args: string[]) {
     .png({ quality: 100 })
     .toBuffer();
 
-  const colorSlug = hexColor.replace('#', '');
-  const baseName = path.basename(inputPath, ext);
-  const outputPath = path.join(path.dirname(inputPath), `${baseName}-${colorSlug}.png`);
+  const productName = path.basename(path.dirname(inputPath));
+  const colorSlug = colorName.toLowerCase().replace(/\s+/g, '-');
+  const outputDir = path.join(path.dirname(inputPath), '..', '..', 'output', productName);
+  await fs.mkdir(outputDir, { recursive: true });
+  const outputPath = path.join(outputDir, `${productName}-${colorSlug}.png`);
 
-  console.log(`\nMudando cor para ${hexColor}...`);
+  console.log(`\nProduto: ${productName}`);
+  console.log(`Cor: ${colorName} (${hexColor})`);
   const start = Date.now();
 
   const result = await gemini.changeColor(preprocessed, hexColor, mimeType);

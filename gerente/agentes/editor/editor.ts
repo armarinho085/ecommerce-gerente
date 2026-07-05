@@ -15,7 +15,7 @@ export async function run(args: string[]) {
     console.log('\nAgente: editor');
     console.log('Skills disponíveis:');
     console.log('  generate-catalog   <imagem>                  → gera foto profissional de catálogo');
-    console.log('  change-color       <imagem> <#hex>           → muda cor de uma imagem');
+    console.log('  change-color       <imagem> <#hex> <nome>     → muda cor de uma imagem');
     console.log('  change-color-batch <imagem> <cores.txt>      → muda várias cores em lote');
     return;
   }

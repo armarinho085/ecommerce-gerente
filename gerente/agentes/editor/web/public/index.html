@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor de Fotos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>Editor de Fotos</h1>
+      <p>Processamento de imagens para e-commerce</p>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="catalog">Melhorar Foto</button>
+    <button class="tab" data-tab="color">Mudar Cor</button>
+    <button class="tab" data-tab="batch">Lote de Cores</button>
+  </nav>
+
+  <main>
+
+    <!-- Melhorar Foto -->
+    <section id="tab-catalog" class="tab-panel">
+      <div class="panel-left">
+        <div class="card">
+          <h2>Foto do produto</h2>
+          <p class="hint">A foto pode ser amadora — o agente remove o fundo, aplica iluminação de estúdio e entrega 1200×1200 PNG.</p>
+          <div class="drop-zone" id="drop-catalog">
+            <div class="drop-icon">&#8679;</div>
+            <p>Arraste a foto ou <span class="link">clique para selecionar</span></p>
+            <input type="file" id="file-catalog" accept="image/*" hidden>
+          </div>
+          <div class="img-preview hidden" id="preview-catalog">
+            <img id="preview-catalog-img" alt="Preview">
+            <button class="btn-remove" id="remove-catalog">&#10005;</button>
+          </div>
+          <button class="btn-primary" id="btn-catalog" disabled>Gerar foto de catálogo</button>
+        </div>
+      </div>
+      <div class="panel-right">
+        <div class="card result-card" id="result-catalog">
+          <div class="result-empty"><p>O resultado aparecerá aqui</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mudar Cor -->
+    <section id="tab-color" class="tab-panel hidden">
+      <div class="panel-left">
+        <div class="card">
+          <h2>Foto do produto</h2>
+          <p class="hint">Use a foto já processada pelo "Melhorar Foto" para melhores resultados.</p>
+          <div class="drop-zone" id="drop-color">
+            <div class="drop-icon">&#8679;</div>
+            <p>Arraste a foto ou <span class="link">clique para selecionar</span></p>
+            <input type="file" id="file-color" accept="image/*" hidden>
+          </div>
+          <div class="img-preview hidden" id="preview-color">
+            <img id="preview-color-img" alt="Preview">
+            <button class="btn-remove" id="remove-color">&#10005;</button>
+          </div>
+          <div class="form-group">
+            <label>Cor</label>
+            <div class="color-row">
+              <input type="color" id="color-picker" value="#BD162C">
+              <input type="text" id="color-hex" value="#BD162C" placeholder="#000000" maxlength="7">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Nome da cor</label>
+            <input type="text" id="color-name" placeholder="ex: vermelho-escuro">
+          </div>
+          <button class="btn-primary" id="btn-color" disabled>Mudar cor</button>
+        </div>
+      </div>
+      <div class="panel-right">
+        <div class="card result-card" id="result-color">
+          <div class="result-empty"><p>O resultado aparecerá aqui</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lote de Cores -->
+    <section id="tab-batch" class="tab-panel hidden">
+      <div class="panel-left">
+        <div class="card">
+          <h2>Foto do produto</h2>
+          <p class="hint">Gera variações de cor para a mesma foto. Cada cor é processada individualmente pelo Gemini.</p>
+          <div class="drop-zone" id="drop-batch">
+            <div class="drop-icon">&#8679;</div>
+            <p>Arraste a foto ou <span class="link">clique para selecionar</span></p>
+            <input type="file" id="file-batch" accept="image/*" hidden>
+          </div>
+          <div class="img-preview hidden" id="preview-batch">
+            <img id="preview-batch-img" alt="Preview">
+            <button class="btn-remove" id="remove-batch">&#10005;</button>
+          </div>
+          <div class="color-list-header">
+            <label>Cores</label>
+            <button class="btn-add" id="btn-add-color">+ Adicionar cor</button>
+          </div>
+          <div class="color-list" id="color-list"></div>
+          <button class="btn-primary" id="btn-batch" disabled>Processar lote</button>
+        </div>
+      </div>
+      <div class="panel-right">
+        <div class="card result-card" id="result-batch">
+          <div class="result-empty"><p>Os resultados aparecerão aqui</p></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
