@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs/promises';
 import { chromium } from 'playwright';
-import { getStore, getActiveTheme } from '../src/NuvemshopAPI';
+import { getStore } from '../src/NuvemshopAPI';
 import { analisarLayout } from '../src/AnalistaSiteAI';
 import { salvarRelatorio } from '../src/salvarRelatorio';
 
@@ -38,18 +38,10 @@ const SCREENSHOT_DIR = path.join(OUTPUT_DIR, 'screenshots');
 export async function run(_args: string[]) {
   console.log('Identificando tema e layout da loja...');
 
-  const [loja, tema] = await Promise.all([
-    getStore(),
-    getActiveTheme().catch(() => null),
-  ]);
+  const loja = await getStore();
+  const lojaUrl = loja.url_with_protocol;
 
-  if (tema) {
-    console.log(`Tema ativo: ${tema.name} (${tema.code})`);
-  } else {
-    console.log('Tema: não identificado via API (token pode não ter permissão /themes)');
-  }
-
-  const lojaUrl = loja.url.startsWith('http') ? loja.url : `https://${loja.url}`;
+  console.log(`Tema ativo: ${loja.current_theme}`);
 
   await fs.mkdir(SCREENSHOT_DIR, { recursive: true });
 
@@ -63,7 +55,7 @@ export async function run(_args: string[]) {
   });
 
   const audit: LayoutAudit = {
-    tema: tema ? { id: tema.id, nome: tema.name, code: tema.code } : null,
+    tema: { id: 0, nome: loja.current_theme, code: loja.current_theme },
     temaBody: '',
     slots: [],
     secoes: [],
@@ -217,13 +209,7 @@ export async function run(_args: string[]) {
   linhas.push('');
 
   linhas.push('## Tema Ativo');
-  if (audit.tema) {
-    linhas.push(`**Nome:** ${audit.tema.nome}`);
-    linhas.push(`**Código:** ${audit.tema.code}`);
-    linhas.push(`**ID:** ${audit.tema.id}`);
-  } else {
-    linhas.push('_Não identificado via API (token sem escopo /themes)_');
-  }
+  linhas.push(`**Nome:** ${loja.current_theme}`);
   if (audit.temaBody) {
     linhas.push(`**Classes no HTML:** \`${audit.temaBody}\``);
   }

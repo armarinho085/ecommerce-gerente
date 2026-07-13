@@ -54,7 +54,7 @@ export async function run(_args: string[]) {
 
   const linhas: string[] = [
     `## Auditoria SEO — ${loja.name}`,
-    `**Loja:** ${loja.url}  `,
+    `**Loja:** ${loja.url_with_protocol}  `,
     `**Total publicados:** ${publicados.length}  `,
     `**SEO completo e adequado:** ${completos} (${pct(completos, publicados.length)}%)`,
     '',

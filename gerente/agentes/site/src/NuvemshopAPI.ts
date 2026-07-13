@@ -80,10 +80,12 @@ export interface NSOrder {
 
 export interface NSStore {
   name: string;
-  url: string;
+  original_domain: string;
+  url_with_protocol: string;
   email: string;
   country: string;
-  currency: string;
+  main_currency: string;
+  current_theme: string;
 }
 
 export interface NSTheme {

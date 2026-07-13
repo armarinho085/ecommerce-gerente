@@ -7,7 +7,7 @@ export async function run(_args: string[]) {
   console.log('Buscando informações da loja...');
   const [loja, produtos] = await Promise.all([getStore(), getProducts()]);
 
-  const lojaUrl = loja.url.startsWith('http') ? loja.url : `https://${loja.url}`;
+  const lojaUrl = loja.url_with_protocol;
 
   const publicados = produtos.filter(p => p.published);
   const produtoAleatorio = publicados[Math.floor(Math.random() * publicados.length)];
